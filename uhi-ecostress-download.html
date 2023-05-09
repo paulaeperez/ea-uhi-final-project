@@ -14598,9 +14598,17 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="UHI-Final-Project">UHI Final Project<a class="anchor-link" href="#UHI-Final-Project">&#182;</a></h2><h3 id="ECOSTRESS-Data-Download-and-Overview-Product">ECOSTRESS Data Download and Overview Product<a class="anchor-link" href="#ECOSTRESS-Data-Download-and-Overview-Product">&#182;</a></h3><p>The following Notebook contains a short workflow to download and process ECOSTRESS data from EarthExplorer with the Machine2Machine API. The intermediate outputs are H5 files corresponding to LST and Cloud Coverage for the selected study area, and the final outputs are raster image files of LST.</p>
-<h2 id="Project-Overview">Project Overview<a class="anchor-link" href="#Project-Overview">&#182;</a></h2><p>This product was create in response to a research need proposed by the CIty of Boulder in Colorado to study Urban Heat Islands with high resolution. Their efforts are currently supported by the Jet Propulsion Lab, where researchers are hoping to downscale Land Surface Temperature (LST) data to a spatial resolution that informs local policy.</p>
+<h2 id="Project-Overview">Project Overview<a class="anchor-link" href="#Project-Overview">&#182;</a></h2><p>This product was create in response to a research need proposed by the City of Boulder in Colorado to study Urban Heat Islands with high resolution. Their efforts are currently supported by the Jet Propulsion Lab, where researchers are hoping to downscale Land Surface Temperature (LST) data to a spatial resolution that informs local policy.</p>
+<p>Urban Heat Islands are city phenomena caused by rapid urbanization and physical characteristics such as impervious materials and lack of vegetation. Not only do they have serious public health consequences, but they have also been proven to disproportionately impact socioeconommically vulnerable communities, such as low-income or racial minority communities.</p>
+<p>Having downscaled data is crucial for city officials to address this issue with more just policies at a granular community level.</p>
 <h2 id="Data-sources">Data sources<a class="anchor-link" href="#Data-sources">&#182;</a></h2><p>We use remote sensing data from the ECOSTRESS mission, specifically LST data provided in .h5 files. ECOSTRESS data comes in 70m resolution at an almost daily (but irregular) frequency. This product only processes ECOSTRESS LST data, but a future objective is to combine it with other demographic, socioeconomic and physical variables to better predict, and ultimately downscale, LST.</p>
 <p>The study area boundary was obtained as a shapefile from the City of Boulder, and should be replaceable with other study areas if desired.</p>
+<h2 id="State-of-current-notebook">State of current notebook<a class="anchor-link" href="#State-of-current-notebook">&#182;</a></h2><p>The current notebook is the first step in what will be a longer workflow. It includes code to download ECOSTRESS data and process it from an .h5 file to a geoTIFF.</p>
+<p>However, both functionalities currently have some bugs.</p>
+<ul>
+<li>The downloader obtains some files but sometimes crashes before downloading every scene, or takes too long to run (&gt;1 hr) for few scenes. Test data can be <a href="https://e4ftl01.cr.usgs.gov/ECOSTRESS/">downloaded here</a> to bypass this issue until it is addressed.</li>
+<li>The raw data processing is not pulling all necessary georeferencing data from the ECO1BGEO product to correct ECO2LSTE data.</li>
+</ul>
 <h3 id="Author:-Paula-P%C3%A9rez">Author: Paula P&#233;rez<a class="anchor-link" href="#Author:-Paula-P%C3%A9rez">&#182;</a></h3>
 </div>
 </div>
@@ -15141,7 +15149,7 @@ class="
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Raw-data-processing">Raw data processing<a class="anchor-link" href="#Raw-data-processing">&#182;</a></h2><p>The ECOSTRESS data is downloaded as individual .h5 files for each scene. While this means they don't need any kind of uncompressing, they have to be processed before being a useable GeoDataFrame.</p>
 <p>The following code is based off of the <a href="https://git.earthdata.nasa.gov/projects/LPDUR/repos/ecostress_swath2grid/browse">ECOSTRESS Swath To Grid Conversion Script</a> provided by NASA's LP DAAC. The original script is meant to be called through the command line, but different functions were copied and adapted below to run inline in this product and convert .h5 files into GeoTIFFs.</p>
-<p>Note: the current EE download has bugs! I have included a sample of data in this repo in 'data/eco_direct_download' to run the remaining cells. You can save this data to your own data directory and run:</p>
+<p>Note: the current EE download has bugs! I have pointed the following code to a test sample of data to run the remaining cells by changing the path in ee_dir. LST and GEO data can be <a href="https://e4ftl01.cr.usgs.gov/ECOSTRESS/">downloaded here</a>.</p>
 
 </div>
 </div>
