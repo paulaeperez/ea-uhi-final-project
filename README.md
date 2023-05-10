@@ -26,7 +26,13 @@ The repo has the following dependencies:
 - numpy
 - pyresample
 - gdal
+- earthaccess
 
 The base conda environment can be configured by following [these steps](https://www.earthdatascience.org/workshops/setup-earth-analytics-python/setup-python-conda-earth-analytics-environment/).
 
-Not included in the environment are the packages h5py, pyresample and pyproj, which should be installed after the environment is set up.
+Not included in the environment are the packages h5py, pyresample, earthaccess, and pyproj, which should be installed in addition to the `earth-analytics-python` environment. A complete YAML file [environment.yml](environment.yml) is included for your convenience to setup an environment `ea-uhi` for this project. Run the below command from this directory to create the necessary conda environment.
+
+```bash
+conda env create -f environment.yml
+conda activate ea-uhi
+```
